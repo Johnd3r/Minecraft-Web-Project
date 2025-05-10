@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" />
+    <title>Minecraft Interface</title>
+  </head>
+  <body>
+    <header>
+      <h1 id="index-title" class="pixelHeader2">Minecraft Game Interface</h1>
+      <p class="splash-text pixelHeader" id="splashText">
+        ¿Alguien lee estas cosas?
+      </p>
+    </header>
+    <main>
+      <div class="card">
+        <div class="card-inner">
+          <!-- Front of Card -->
+          <div class="card-front">
+            <img
+              src="/images/logomc.png"
+              alt="Minecraft Banner"
+              class="banner"
+            />
+            <h2 class="pixelHeader2">Welcome to the World of Minecraft</h2>
+            <p class="pixel-text">Choose your election:</p>
+            <div class="buttons">
+              <button type="button" class="btn play pixelHeader">PLAY</button>
+              <button type="button" class="btn create pixelHeader">
+                CREATE
+              </button>
+            </div>
+          </div>
+
+          <!-- Back of Card -->
+          <div class="card-back">
+            <h2 class="pixelHeader2" id="log-tit">Login Account</h2>
+            <form id="login-form" action="/login" method="post">
+              <label id="label-user" class="pixel-text">Username:</label>
+              <input
+                id="user"
+                class="inputLog"
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+              /><br />
+
+              <label id="label-pass" class="pixel-text">Password:</label>
+              <input
+                id="pass"
+                class="inputLog pixel-text"
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              /><br />
+
+              <button type="submit" class="btn play pixelHeader login">
+                LOGIN
+              </button>
+              <button
+                type="submit"
+                class="btn create pixelHeader login"
+                href=""
+              >
+                BACK
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Selecciona el botón "PLAY" y el contenedor de la tarjeta
+      const playButton = document.querySelector(".btn.play");
+      const cardInner = document.querySelector(".card-inner");
+
+      // Agrega un evento de clic al botón "PLAY"
+      playButton.addEventListener("click", () => {
+        cardInner.classList.add("flipped");
+      });
+
+      // Selecciona el botón "BACK"
+      const backButton = document.querySelector(".btn.create.login");
+
+      // Agrega un evento de clic al botón "BACK"
+      backButton.addEventListener("click", (event) => {
+        event.preventDefault(); // Evita que el formulario se envíe si es un botón dentro de un formulario
+        cardInner.classList.remove("flipped"); // Elimina la clase "flipped" para regresar al frente
+      });
+      const createButton = document.querySelector(".btn.create");
+
+      // Agrega un evento de clic al botón "CREATE"
+      createButton.addEventListener("click", () => {
+        window.location.href = "/templates/createPlayer.html"; // Redirige a la página createPlayer.html
+      });
+    </script>
+  </body>
+</html>
