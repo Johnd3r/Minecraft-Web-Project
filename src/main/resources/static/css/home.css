@@ -88,7 +88,9 @@ main {
   align-items: center;
   flex-direction: column;
 }
-
+a{
+  text-decoration: none;
+}
 .card {
   background-color: #3c3c3c;
   border: 5px solid #2e2e2e;

@@ -28,16 +28,21 @@
             <p class="pixel-text">Choose your election:</p>
             <div class="buttons">
               <button type="button" class="btn play pixelHeader">PLAY</button>
-              <button type="button" class="btn create pixelHeader">
+              <a th:href="@{/create}" class="btn create pixelHeader">
                 CREATE
-              </button>
+              </a>
             </div>
           </div>
 
           <!-- Back of Card -->
           <div class="card-back">
             <h2 class="pixelHeader2" id="log-tit">Login Account</h2>
-            <form id="login-form" action="/login" method="post">
+            <form
+              th:action="@{/login}"
+              id="login-form"
+              method="post"
+              onsubmit="return handleLogin(event)"
+            >
               <label id="label-user" class="pixel-text">Username:</label>
               <input
                 id="user"
@@ -65,15 +70,49 @@
                 type="submit"
                 class="btn create pixelHeader login"
                 href=""
+                id="back-button"
               >
                 BACK
               </button>
+              <div id="error-message" class="error-message" style="color: red; display: none;"></div>
             </form>
           </div>
         </div>
       </div>
     </main>
+    <script>
+      function handleLogin(event) {
+        event.preventDefault();
 
+        const form = event.target;
+        const formData = new FormData(form);
+        const errorElement = document.getElementById("error-message");
+
+        fetch(form.action, {
+          method: "POST",
+          body: new URLSearchParams(formData),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              window.location.href = data.redirectUrl;
+            } else {
+              // Muestra el error sin voltear la tarjeta
+              errorElement.textContent = data.error;
+              errorElement.style.display = "block";
+            }
+          })
+          .catch((error) => {
+            errorElement.textContent = "Error de conexión";
+            errorElement.style.display = "block";
+          });
+
+        return false;
+      }
+    </script>
     <script>
       // Selecciona el botón "PLAY" y el contenedor de la tarjeta
       const playButton = document.querySelector(".btn.play");
@@ -94,10 +133,23 @@
       });
       const createButton = document.querySelector(".btn.create");
 
-      // Agrega un evento de clic al botón "CREATE"
-      createButton.addEventListener("click", () => {
-        window.location.href = "/templates/createPlayer.html"; // Redirige a la página createPlayer.html
-      });
+      window.onload = function () {
+        // Solución Thymeleaf-compatible
+        const hasError = /*[[${error}]]*/ false;
+        if (hasError) {
+          document.querySelector(".card-inner").classList.add("flipped");
+        }
+      };
+    </script>
+    <script>
+      // Agrega este evento para el botón BACK
+      document
+        .getElementById("back-button")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          document.querySelector(".card-inner").classList.remove("flipped");
+          document.getElementById("error-message").style.display = "none";
+        });
     </script>
   </body>
 </html>

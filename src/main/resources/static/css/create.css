@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15&display=swap");
+.pixelHeader2 {
+  font-family: "Minecraft", sans-serif;
+}
+.pixelHeader {
+  font-family: "Pixelify Sans", sans-serif;
+  color: white;
+  font-size: 3rem;
+  text-shadow: 2px 2px 4px #000;
+}
+
+.pixel-text {
+  font-family: "Jersey 15", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+}
+
+body {
+  background-image: url("/images/dirtBackground.jpg"); /* Ruta de la imagen */
+  background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen */
+  font-family: "Pixelify Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: none;
+  height: 100vh;
+}
+
+/* Animación del título principal */
+@keyframes floatPulse {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+  }
+}
+
+#index-title {
+  animation: floatPulse 3s infinite ease-in-out;
+  text-align: center;
+  color: #fff;
+  font-size: 3rem;
+  margin-top: 40px !important;
+  text-shadow: 2px 2px #000;
+  font-family: "Minecraft", sans-serif;
+}
+
+.titCreatePlayer {
+  background-color: rgb(100, 189, 78);
+  border-radius: 2px;
+  padding: 3px;
+  color: #36722a;
+}
+#backContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* Eliminamos el amarillo de aquí */
+  gap: 0; /* Quitamos el espacio entre tarjetas */
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+/* Fondo amarillo SOLO en la tarjeta de la imagen */
+.imageCard {
+  background-color: #f89c1c; /* Amarillo aquí */
+  border-radius: 0 15px 15px 0; /* Bordes redondeados solo en la derecha */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 275px;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2); /* Sombra solo a la derecha */
+}
+
+/* Tarjeta del formulario (izquierda) */
+.formCard {
+  background-color: white;
+  border-radius: 15px 0 0 15px; /* Bordes redondeados solo en la izquierda */
+  padding: 20px;
+  width: 300px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2); /* Sombra solo a la izquierda */
+}
+
+/* Ajuste de la imagen */
+#modelPlayerImg {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.inputTextInfo {
+  padding: 10px;
+  padding-right: 100px;
+}
+
+/* Estilo para el selector de PLAYER MODE */
+#playerGameModeSelector {
+  appearance: none; /* Oculta la flecha por defecto */
+  -webkit-appearance: none; /* Para navegadores basados en WebKit (Chrome, Safari) */
+  -moz-appearance: none; /* Para Firefox */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Flecha personalizada */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Posición de la flecha */
+  background-size: 16px; /* Tamaño de la flecha */
+  padding-right: 30px; /* Espacio para la flecha */
+  cursor: pointer;
+  width: 100%;
+  border: 2px solid #ccc; /* Borde opcional */
+  border-radius: 5px;
+  padding: 8px;
+  font-family: inherit;
+}
+.btn {
+  color: white;
+  border: none;
+  padding: 20px 60px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn.create {
+  background-color: #4caf50;
+}
+.btn.create:hover {
+  transition: 0.5s;
+  background-color: #86c289;
+  box-shadow: 0 0 0 4px #3c3c3c, 0 0 0 8px #91ff95;
+}
+
+.btn.back {
+  background-color: #eb5e1c;
+}
+
+.btn.back:hover {
+  transition: 0.5s;
+  background-color: #ffa946;
+  box-shadow: 0 0 0 4px #3c3c3c, 0 0 0 8px #ffa946;
+}
+
+.buttons{
+  margin-top: 65px;
+  padding: 20px;
+  gap: 150px; /* Espacio entre botones (ajusta el valor a tu gusto) */
+  display: flex; /* Asegura que los botones estén en línea */
+  background-color: #f89c1ca8;
+  border-radius: 10px;
+}
+
+/* Fuente Minecraft */
+@font-face {
+  font-family: 'Minecraft';
+  src: url('https://fonts.cdnfonts.com/css/minecraft-4') format('woff2');
+}
+
+.minecraft-swal {
+  font-family: 'Minecraft', 'Press Start 2P', cursive !important;
+  background-color: #2d2d2d !important;
+  border: 4px solid #5a5a5a !important;
+  color: #fff !important;
+}
+
+.swal2-confirm {
+  background-color: #f89c1c !important;
+  color: #000 !important;
+  font-family: 'Minecraft', 'Press Start 2P', cursive !important;
+}
+/* Estilo adicional solo para el SweetAlert (no afecta tu diseño) */
+      .swal2-popup {
+        background: #2d2d2d !important;
+        border: 3px solid #5a5a5a !important;
+      }
+      .swal2-title {
+        color: #f89c1c !important;
+        font-family: 'Minecraft', sans-serif !important;
+      }
+      .swal2-html-container {
+        color: white !important;
+        font-family: 'Minecraft', sans-serif !important;
+      }
