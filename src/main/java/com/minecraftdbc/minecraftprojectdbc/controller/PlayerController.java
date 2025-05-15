@@ -2,6 +2,7 @@ package com.minecraftdbc.minecraftprojectdbc.controller;
 
 import com.minecraftdbc.minecraftprojectdbc.model.Player;
 import com.minecraftdbc.minecraftprojectdbc.service.PlayerService;
+import com.minecraftdbc.minecraftprojectdbc.repository.PlayerRepository;
 
 /* import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse; */
@@ -16,13 +17,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class PlayerController {
     private final PlayerService playerService;
+    private final PlayerRepository playerRepository;
 
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService, PlayerRepository playerRepository) {
         this.playerService = playerService;
+        this.playerRepository = playerRepository;
     }
 
     // Página principal (login)
@@ -60,19 +64,39 @@ public class PlayerController {
 
     // Procesar registro
     @PostMapping("/createAccount")
-    public String createAccount(Player player, Model model) {
-        String error = playerService.registerPlayer(player);
-        if (error != null) {
-            model.addAttribute("error", error);
-            return "createPlayer"; // Vuelve al formulario con el error
-        }
-        return "redirect:/"; // Éxito: redirige al login
+public String createAccount(
+        @RequestParam String name,
+        @RequestParam String password,
+        @RequestParam String confirmPassword,
+        @RequestParam String playerType,
+        Model model,
+        RedirectAttributes redirectAttributes) {
+
+    // Validación básica
+    if (!password.equals(confirmPassword)) {
+        model.addAttribute("error", "Las contraseñas no coinciden");
+        return "createPlayer";
     }
 
-    // Lista de jugadores (ejemplo)
-    @GetMapping("/players")
-    public String showPlayers(Model model) {
-        model.addAttribute("players", playerService.getAllPlayers());
-        return "players";
+    // Verificar si el usuario ya existe
+    if (playerRepository.existsByName(name)) {
+        model.addAttribute("error", "El nombre de usuario ya existe");
+        return "createPlayer";
     }
+
+    // Crear y guardar el jugador
+    Player player = new Player();
+    player.setName(name);
+    player.setPassword(password); // En producción: encriptar aquí
+    player.setPlayerType(playerType);
+    player.setLevel("0");
+    player.setExperience(0);
+
+    // ESTA ES LA LÍNEA FALTANTE QUE GUARDA EN LA BD
+    playerRepository.save(player);
+
+    // Mensaje de éxito
+    redirectAttributes.addFlashAttribute("success", "¡Registro exitoso! Por favor inicia sesión.");
+    return "redirect:/";
+}
 }

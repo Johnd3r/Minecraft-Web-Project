@@ -28,7 +28,11 @@
             <p class="pixel-text">Choose your election:</p>
             <div class="buttons">
               <button type="button" class="btn play pixelHeader">PLAY</button>
-              <a th:href="@{/create}" class="btn create pixelHeader">
+              <a
+                th:href="@{/create}"
+                href="/create"
+                class="btn create pixelHeader"
+              >
                 CREATE
               </a>
             </div>
@@ -74,7 +78,11 @@
               >
                 BACK
               </button>
-              <div id="error-message" class="error-message" style="color: red; display: none;"></div>
+              <div
+                id="error-message"
+                class="error-message"
+                style="color: red; display: none"
+              ></div>
             </form>
           </div>
         </div>

@@ -15,16 +15,17 @@ public class PlayerRepository {
     public PlayerRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
+    
     // Guardar un jugador (registro)
     public void save(Player player) {
-        String sql = "INSERT INTO player (name, level, experience, playerType, password) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO player (name, password, level, experience, playerType) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-                player.getName(),
-                player.getLevel(),
-                player.getExperience(),
-                player.getPlayerType(),
-                player.getPassword());
+            player.getName(),
+            player.getPassword(),
+            player.getLevel(),
+            player.getExperience(),
+            player.getPlayerType()
+        );
     }
 
     // Buscar por nombre (login)
@@ -41,6 +42,12 @@ public class PlayerRepository {
         } catch (EmptyResultDataAccessException e) {
             return null; // Si no encuentra el jugador
         }
+    }
+    
+    public boolean existsByName(String name) {
+        String sql = "SELECT COUNT(*) FROM player WHERE name = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, name);
+        return count != null && count > 0;
     }
 
     // Listar todos los jugadores (opcional)

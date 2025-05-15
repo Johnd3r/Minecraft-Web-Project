@@ -5,21 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/create.css" />
     <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet" />
+    <!-- SweetAlert mínimo (solo esto se añadió) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
     <title>Create Account</title>
   </head>
   <body>
     <h1 id="index-title" class="pixelHeader2">CREATE PLAYER SECTION</h1>
-    <div id="backContainer">
-      <!-- Tarjeta del formulario -->
-      <div class="card formCard">
-        <form th:action="@{/createAccount}" th:method="post">
+    <form th:action="@{/createAccount}" method="post">
+      <div id="backContainer">
+        <div class="card formCard">
+          <!-- ...campos del formulario... -->
           <label class="titCreatePlayer">Username:</label><br />
           <input
             class="inputTextInfo pixelHeader2"
             placeholder="Type your Username"
             type="text"
             id="username"
-            name="username"
+            name="name"
             required
           />
           <br /><br />
@@ -52,68 +57,51 @@
           <select
             class="pixelHeader2"
             id="playerGameModeSelector"
-            name="selectorGameMode"
+            name="playerType"
             required
           >
-            <option class="pixel-text" value="survival">EXPLORER</option>
-            <option class="pixel-text" value="creative">BUILDER</option>
-            <option class="pixel-text" value="hardcore">WARRIOR</option>
+            <option class="pixel-text" value="EXPLORER">EXPLORER</option>
+            <option class="pixel-text" value="BUILDER">BUILDER</option>
+            <option class="pixel-text" value="WARRIOR">WARRIOR</option>
             <option selected value=""></option>
           </select>
           <br /><br />
-        </form>
+        </div>
+        <!-- Tarjeta de la imagen -->
+        <div class="card imageCard">
+          <img
+            id="modelPlayerImg"
+            src="/images/modelPlayer.png"
+            alt="Minecraft Banner"
+          />
+        </div>
       </div>
-      <!-- Tarjeta de la imagen --> 
-      <div class="card imageCard">
-        <img
-          id="modelPlayerImg"
-          src="/images/modelPlayer.png"
-          alt="Minecraft Banner"
-        />
-      </div>
-    </div>
-    <form id="playerForm" th:action="@{/createAccount}" th:method="post">
       <div class="buttons">
         <a href="/">
-          <button type="submit" class="btn back pixelHeader" form="form">
-            BACK
-          </button>
+          <button type="button" class="btn back pixelHeader">BACK</button>
         </a>
         <p th:if="${error}" th:text="${error}" style="color: red"></p>
-        <button onclick="window.location.href='/create'" type="button" class="btn create pixelHeader" id="createButton">
+        <button type="submit" class="btn create pixelHeader" id="createButton">
           CREATE
         </button>
       </div>
     </form>
-    <!-- SweetAlert mínimo (solo esto se añadió) -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
-    />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document
         .getElementById("createButton")
-        .addEventListener("click", function () {
-          const username = document.getElementById("username").value;
-          Swal.fire({
-            title: "¡Jugador Creado!",
-            text: `Se ha creado el jugador ${username}`,
-            icon: "success",
-          });
+        .addEventListener("click", function (e) {
+          if (document.getElementById("register-form").checkValidity()) {
+            Swal.fire({
+              title: "¡Jugador Creado!",
+              text: `Se ha creado el jugador ${username}`,
+              icon: "success",
+            }).then(() => {
+              document.getElementById("register-form").submit();
+            });
+          }
+          return false;
         });
-    </script>
-    <script>
-      document.querySelector("form").addEventListener("submit", function (e) {
-        const password = document.querySelector("[name='password']").value;
-        const confirmPassword = document.querySelector(
-          "[name='confirmPassword']"
-        ).value;
-        if (password !== confirmPassword) {
-          e.preventDefault();
-          alert("¡Las contraseñas no coinciden!");
-        }
-      });
     </script>
   </body>
 </html>
