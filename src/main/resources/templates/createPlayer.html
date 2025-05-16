@@ -14,7 +14,7 @@
   </head>
   <body>
     <h1 id="index-title" class="pixelHeader2">CREATE PLAYER SECTION</h1>
-    <form th:action="@{/createAccount}" method="post">
+    <form th:action="@{/createAccount}" method="post" id="register-form">
       <div id="backContainer">
         <div class="card formCard">
           <!-- ...campos del formulario... -->
@@ -54,17 +54,18 @@
           <br /><br />
 
           <label class="titCreatePlayer">PLAYER MODE:</label>
-          <select
-            class="pixelHeader2"
-            id="playerGameModeSelector"
-            name="playerType"
-            required
-          >
-            <option class="pixel-text" value="EXPLORER">EXPLORER</option>
-            <option class="pixel-text" value="BUILDER">BUILDER</option>
-            <option class="pixel-text" value="WARRIOR">WARRIOR</option>
-            <option selected value=""></option>
+          <!-- Modifica el select para usar el enum -->
+          <select name="playerType" required>
+            <option value="">Selecciona un tipo</option>
+            <option
+              th:each="type : ${T(com.minecraftdbc.minecraftprojectdbc.model.enums.PlayerType).values()}"
+              th:value="${type}"
+              th:text="${type}"
+            ></option>
           </select>
+
+          <!-- Elimina SweetAlert (opcional) y usa solo Thymeleaf -->
+          <p th:if="${error}" th:text="${error}" style="color: red"></p>
           <br /><br />
         </div>
         <!-- Tarjeta de la imagen -->
