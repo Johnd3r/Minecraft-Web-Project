@@ -15,10 +15,9 @@ public class PlayerController {
         this.playerRepository = playerRepository;
     }
 
-    // Página principal (login)
     @GetMapping("/")
     public String index() {
-        return "index"; // index.html
+        return "index";
     }
     @PostMapping("/login")
     public String login(
@@ -37,7 +36,7 @@ public class PlayerController {
 
     @GetMapping("/create")
     public String showCreateForm() {
-        return "createPlayer"; // createPlayer.html
+        return "createPlayer";
     }
 
     @PostMapping("/createAccount")
@@ -65,7 +64,7 @@ public class PlayerController {
         player.setLevel("0");
         player.setExperience(0);
 
-        playerRepository.save(player); // Guardado con CrudRepository
+        playerRepository.save(player);
 
         return "redirect:/?success";
     }
