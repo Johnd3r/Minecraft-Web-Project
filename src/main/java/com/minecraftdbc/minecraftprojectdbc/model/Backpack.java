@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+
+import com.minecraftdbc.minecraftprojectdbc.model.enums.BackpackStatus;
+
 import lombok.Data;
 
 @Data
@@ -15,16 +18,16 @@ public class Backpack {
     private Long idBackpack;
 
     @Column("capacity")
-    private int capacity;
+    private Integer capacity = 20;
 
     @Column("color")
-    private String color;
+    private String color = "#000000";
 
     @Column("currentWeight")
-    private float currentWeight;
+    private Float currentWeight = 0f;
     
     @Column("backpackStatus")
-    private String backpackStatus;
+    private BackpackStatus backpackStatus;
 
     // Reference to Player One to One
     @Column("idPlayer")

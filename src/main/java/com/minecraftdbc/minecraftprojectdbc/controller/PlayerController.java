@@ -62,7 +62,7 @@ public class PlayerController {
         player.setPassword(password);
         player.setPlayerType(playerType);
         player.setLevel("0");
-        player.setExperience(0);
+        player.setExperience(0.0f);
 
         playerRepository.save(player);
 
