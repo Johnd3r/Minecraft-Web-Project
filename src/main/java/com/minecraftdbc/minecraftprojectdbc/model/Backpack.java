@@ -30,7 +30,9 @@ public class Backpack {
     private BackpackStatus backpackStatus;
 
     // Reference to Player One to One
-    @Column("idPlayer")
+    @Column("id_player")
     private AggregateReference<Player,Long> idPlayer; 
+
+    
    
 }
